@@ -1,0 +1,95 @@
+:root {
+  /* Pico CSS blijft de basis; deze tokens geven de interface haar retro-uiterlijk. */
+  --pico-border-radius: 0;
+  --pico-font-family: Arial, Helvetica, sans-serif;
+  --pico-primary: #000080;
+  --pico-primary-hover: #2020a0;
+  --pico-primary-focus: rgba(0, 0, 128, 0.2);
+}
+
+body {
+  /* Beperk de inhoud tot een compacte instrumentenweergave. */
+  min-height: 100vh;
+  background: #c0c0c0;
+}
+
+main {
+  max-width: 720px;
+  padding-block: 2rem;
+}
+
+header {
+  /* Opgemaakte kop en panelen bootsen klassieke desktopcontrols na. */
+  margin-bottom: 1rem;
+  border: 2px outset #fff;
+  padding: 1rem;
+  background: #000080;
+  color: #fff;
+}
+
+header h1,
+header p {
+  margin-bottom: 0.35rem;
+  color: inherit;
+}
+
+header small,
+footer small {
+  font-family: "Courier New", monospace;
+}
+
+article {
+  border: 2px outset #fff;
+  box-shadow: 1px 1px #000;
+  background: #efefef;
+}
+
+article h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+dl {
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  border-bottom: 1px dotted #777;
+  padding: 0.35rem 0;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+}
+
+.reading {
+  margin-bottom: 0.5rem;
+  font-family: "Courier New", monospace;
+  font-size: 1.7rem;
+}
+
+button {
+  border: 2px outset #fff;
+  box-shadow: 1px 1px #000;
+}
+
+button:active {
+  border-style: inset;
+  box-shadow: none;
+}
+
+#feedback {
+  min-height: 1.5rem;
+  margin-bottom: 0;
+}
+
+footer {
+  text-align: center;
+}
