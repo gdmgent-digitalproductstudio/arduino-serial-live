@@ -16,5 +16,3 @@ const server = app.listen('9041', () => {
     console.log('Server actief op poort 9041 #UUSTAKKER');
     console.log("http://127.0.0.1:9041");
 });
-
-led_on();

@@ -1,4 +1,3 @@
-import { ReadlineParser } from "@serialport/parser-readline";
 import { SerialPort } from "serialport";
 
 const arduino = new SerialPort({
@@ -6,20 +5,22 @@ const arduino = new SerialPort({
     baudRate: 9600
 });
 
-let LED = true;
+arduino.on("open", () => {
+    console.log("Arduino is verbonden");
 
-export function led_on() {
+    led_on();
+});
+
+arduino.on("error", (error) => {
+    console.log("ERROR:", error.message);
+});
+
+function led_on() {
     arduino.write("LED_ON\n");
-    LED = true;
+    console.log("LED_ON verstuurd");
 }
 
-export function led_off() {
+function led_off() {
     arduino.write("LED_OFF\n");
-    LED = true;
+    console.log("LED_OFF verstuurd");
 }
-
-export async function toggleLED() {
-    arduino.write(LED ? "LED_ON\n" : "LED_OFF\n");
-    LED = !LED;
-}
-

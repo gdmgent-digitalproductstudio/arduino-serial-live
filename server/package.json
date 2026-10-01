@@ -8,7 +8,9 @@
   "main": "app.js",
   "scripts": {
     "list": "node src/list-ports.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "arduino": "node src/serial.js"
+
   },
   "dependencies": {
     "@serialport/parser-readline": "^13.0.0",
