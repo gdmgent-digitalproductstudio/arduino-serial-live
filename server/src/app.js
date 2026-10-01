@@ -1,6 +1,7 @@
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { led_on, toggleLED } from "./serial.js";
 
 // directories
 const curDir = path.dirname(fileURLToPath(import.meta.url));
@@ -16,3 +17,4 @@ const server = app.listen('9041', () => {
     console.log("http://127.0.0.1:9041");
 });
 
+led_on();
