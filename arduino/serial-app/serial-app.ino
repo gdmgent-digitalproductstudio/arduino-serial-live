@@ -1,26 +1,38 @@
-void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(0, OUTPUT);
+// Serieel protocol: sensor:<waarde> van Arduino naar Node en led_on/off terug.
+const byte LED_PIN = 2;
+const byte SENSOR_PIN = A0;
+const unsigned long SENSOR_INTERVAL = 500;
 
+unsigned long previousSensorRead = 0;
+
+void setup() {
+  // Start met de externe LED op pin 2 uit en stem de baudrate af op Node.
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
   Serial.begin(9600);
-  Serial.println("Arduino opgestart");
+  Serial.setTimeout(50);
 }
 
 void loop() {
-  toggleLed();
-  
-}
+  const unsigned long now = millis();
 
-void toggleLed() {
-  if(Serial.available()) {
-    String incoming = Serial.readStringUntil('\n');
-    incoming.trim(); // spaties wissen
+  // Gebruik millis() zodat sensormetingen de seriële commandoverdracht niet blokkeren.
+  if (now - previousSensorRead >= SENSOR_INTERVAL) {
+    previousSensorRead = now;
+    const int sensorValue = analogRead(SENSOR_PIN);
+    Serial.print("sensor:");
+    Serial.println(sensorValue);
+  }
 
-    if(incoming == "LED_ON") {
-        digitalWrite(0, 1);
-    }
-    if(incoming == "LED_OFF") {
-        digitalWrite(0, 0);
+  if (Serial.available() > 0) {
+    // Lees één volledig commando per regel en wijzig alleen de LED op pin 2.
+    String command = Serial.readStringUntil('\n');
+    command.trim();
+
+    if (command == "led_on") {
+      digitalWrite(LED_PIN, HIGH);
+    } else if (command == "led_off") {
+      digitalWrite(LED_PIN, LOW);
     }
   }
 }

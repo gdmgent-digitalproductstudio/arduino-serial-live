@@ -1,24 +1,25 @@
 import { SerialPort } from "serialport";
 
+// Toon de door het besturingssysteem gevonden poorten om SERIAL_PATH te bepalen.
 async function listPorts() {
-    const ports = await SerialPort.list();
+  const ports = await SerialPort.list();
 
-    if(ports.length === 0) {
-        console.log("No serial ports found.");
-        return;
-    }
+  if (ports.length === 0) {
+    console.log("Geen seriële apparaten gevonden.");
+    return;
+  }
 
-    const portsReadable = ports.map(({
-        path, manufacturer, serialNumber, vendorId, productId
-    }) => ({
-        path,
-        manufacturer: manufacturer ?? "--",
-        serialNumber: serialNumber ?? "--",
-        vendorId: vendorId ?? "--",
-        productId: productId ?? "--",
-    }));
+  console.table(
+    ports.map(({ path, manufacturer, serialNumber, vendorId, productId }) => ({
+      path,
+      manufacturer: manufacturer ?? "—",
+      serialNumber: serialNumber ?? "—",
+      vendorId: vendorId ?? "—",
+      productId: productId ?? "—"
+    }))
+  );
 
-    console.table(portsReadable);
+  console.log("Start daarna bijvoorbeeld met: npm start -- <pad>");
 }
 
 await listPorts();
